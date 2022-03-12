@@ -7,19 +7,23 @@
 int main(int argc, char *argv[]) //명령어 인자로 테스트 파일 이름을 main 함수에 전송
 {
     // 필요한 변수 선언
-    FILE *fp;
     node *head = NULL;
+    node* result;
+
     int id;
     char name[10];
-    node *result;
     int cmd;
+
+    FILE *fp;
     // 파일 열기
     fp = fopen(argv[1], "rt"); //인자로 넘어온 파일이름을 이용하여 파일 열기
+    
     if (fp == NULL)
     {
         printf("데이터 파일 열기 오류 \n");
         exit(-1);
     }
+
     // 명령어를 읽어 필요한 함수 호출
     while (1)
     {

@@ -6,18 +6,18 @@
 #include <string.h>
 #include "linkedlist.h"
 
-void addNode(node **head, int id, char name[])
+void addNode(node** head, int id, char name[])
 {
-    node *lastNode = *head;
+    node* lastNode = *head;
 
-    node *newNode = (node *)malloc(sizeof(node));
+    node* newNode = (node*)malloc(sizeof(node));
     newNode->id = id;
     strcpy(newNode->name, name);
     newNode->link = NULL;
 
-    if (head == NULL)
+    if (*head == NULL)
     {
-        head = &newNode;
+        *head = newNode;
     }
     else
     {
@@ -29,7 +29,7 @@ void addNode(node **head, int id, char name[])
         lastNode->link = newNode;
     }
 }
-node *searchNode(node *p, int id)
+node* searchNode(node* p, int id)
 {
     while (p->id != id)
     {
@@ -37,10 +37,10 @@ node *searchNode(node *p, int id)
     }
     return p;
 }
-node *deleteNode(node **p, int id)
+node* deleteNode(node** p, int id)
 {
-    node *cur = *p;
-    node *prev = NULL;
+    node* cur = *p;
+    node* prev = NULL;
 
     if (cur->id == id)
     {
@@ -59,19 +59,21 @@ node *deleteNode(node **p, int id)
         return cur;
     }
 }
-void printNode(node *p)
+void printNode(node* p)
 {
-    while (p->link != NULL)
+    while (1)
     {
         printf("id : %d, name %s\n", p->id, p->name);
+        if (p->link == NULL)
+            break;
         p = p->link;
     }
 }
-void freeAllNode(node *p)
+void freeAllNode(node* p)
 {
     while (p->link != NULL)
     {
-        node *delNode = p;
+        node* delNode = p;
         p = p->link;
         free(delNode);
     }

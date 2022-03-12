@@ -28,7 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt">
+    <Text Include="input.txt">
       <Filter>소스 파일</Filter>
     </Text>
   </ItemGroup>
