@@ -1,7 +1,7 @@
 #pragma warning(disable: 4996)
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //헤더에 정의하면 다시 정의 안해도됨
 #include "linkedlist.h"
 
 int main(int argc, char *argv[]) //명령어 인자로 테스트 파일 이름을 main 함수에 전송
