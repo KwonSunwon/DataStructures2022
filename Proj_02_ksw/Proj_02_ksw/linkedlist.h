@@ -1,5 +1,6 @@
 #ifndef __LINKEDLIST_H__    //중복 방지 까먹고 있었다...
 #define __LINKEDLIST_H__
+#pragma warning(diable:4996)
 
 #define _CRT_SECURE_NO_WARNINGS // 다른 헤더 파일보다 위에 나와야함
 

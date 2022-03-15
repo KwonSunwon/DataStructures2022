@@ -1,30 +1,52 @@
 #include "linkedlist.h"
 
-void addNode(node** head, int num)
+void addNode(node **head, int num)
 {
-    node* lastNode = *head;
+    static int k;
 
-    node* newNode = (node*)malloc(sizeof(node));
+    node *current = *head;
+    node *prev = *head;
+
+    node *newNode = (node *)malloc(sizeof(node));
     newNode->num = num;
     newNode->link = NULL;
 
     if (*head == NULL)
     {
         *head = newNode;
+        return;
+    }
+    else if (current->num > num)
+    {
+        printf("첫 if문 시작\n");
+        *head = newNode;
+        newNode->link = current;
+        return;
+        printf("첫 if문 끝\n");
     }
     else
     {
-        while (lastNode->link != NULL)  // lastNode->link 이렇게만 써도 NULL을 만나면 while문 탈출
+        while (current->num < num) // 2개가 추가된 상황에서 에러
         {
-            lastNode = lastNode->link;
+            printf("%d번째 while문 시작\n", k);
+            if (current->link == NULL)
+            {
+                current->link = newNode;
+                return;
+            }
+            prev = current;
+            current = current->link;
+            printf("while문 끝 : %d, %d\n", current->num, num);
         }
-
-        lastNode->link = newNode;
+        printf("while문 탈출\n");
+        newNode->link = current;
+        prev->link = newNode;
     }
-    return; // void 함수 끝에도 항상 return; 해주기
+    ++k;
+    return;
 }
 
-void printNode(node* p)
+void printNode(node *p)
 {
     while (1)
     {
@@ -33,15 +55,17 @@ void printNode(node* p)
             break;
         p = p->link;
     }
+    return;
 }
 
-void freeAllNode(node* p)
+void freeAllNode(node *p)
 {
     while (p->link != NULL)
     {
-        node* delNode = p;
+        node *delNode = p;
         p = p->link;
         free(delNode);
     }
     free(p);
+    return;
 }
