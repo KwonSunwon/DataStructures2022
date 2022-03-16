@@ -2,15 +2,6 @@
 
 #include <time.h>
 #include "linkedlist.h"
-#include "dlinkedlist.h"
-
-int WhoIsPrecede(int d1, int d2) {
-    if (d1 < d2)
-        return 0;
-    else
-        return 1;
-}
-
 
 int main()
 {
@@ -24,53 +15,47 @@ int main()
 
     srand(seed);
     time_t start = time(NULL);
-    
-    //List list;
-    //ListInit(&list);
 
-    node* head = NULL;
+    node *head = NULL;
 
-    //SetSortRule(&list, WhoIsPrecede);
-    
-    printf("1\n");
     for (int i = 0; i < dataSize; ++i)
     {
         addNode(&head, rand());
-        //LInsert(&list , rand());
     }
-    printf("2\n");
 
     time_t end = time(NULL);
 
     printf("Linked List time cost : %ld\n", end - start);
-    //printNode(head);
+    // printNode(head);
 
     int *arr = malloc(sizeof(int) * dataSize);
 
     start = time(NULL);
 
-    int temp = 0;
     int num = 0;
 
     srand(seed);
 
-    printf("3\n");
-    for (int i = 0; i < dataSize; ++i)
+    arr[0] = rand();
+    for (int i = 1; i < dataSize; ++i)
     {
-        arr[i] = rand();
-    }
-    printf("4\n");
-    for (int i = 0; i < dataSize - 1; ++i)
-        for (int j = 0; j < dataSize - 1 - i; ++j)
+        num = rand();
+        for (int j = 0; j < i; ++j)
         {
-            if (arr[j] > arr[j + 1])
+            if (arr[j] > num)
             {
-                temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+                memcpy(arr + j + 1, arr + j, sizeof(int) * (i - j));
+                arr[j] = num;
+                break;
+            }
+            else if (j == i - 1)
+            {
+                arr[i] = num;
+                break;
             }
         }
-    printf("5\n");
+    }
+
     end = time(NULL);
 
     printf("Array time cost : %ld\n", end - start);
