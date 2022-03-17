@@ -1,2 +1,3 @@
-Proj_01_ksw/.vs/Proj_01_ksw/v17/Browse.VC.opendb
-Proj_01_ksw/.vs/Proj_01_ksw/v17/Browse.VC.db
+*.vs/
+*.bin/
+*.obj/
