@@ -21,15 +21,9 @@
     <ClCompile Include="linkedlist.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dlinkedlist.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linkedlist.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="dlinkedlist.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

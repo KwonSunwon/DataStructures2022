@@ -1,1 +1,11 @@
-﻿  Proj_02_ksw.vcxproj -> C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\x64\Debug\Proj_02_ksw.exe
+﻿  main.c
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\linkedlist.h(3,9): warning C4615: #pragma warning: 알 수 없는 사용자 경고 형식입니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(28,12): warning C4477: 'printf' : 서식 문자열 '%ld'에 'long' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'time_t'입니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(28,12): message : 서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(28,12): message : 서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(28,12): message : 서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(61,12): warning C4477: 'printf' : 서식 문자열 '%ld'에 'long' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'time_t'입니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(61,12): message : 서식 문자열에서 '%lld'을(를) 사용하는 것이 좋습니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(61,12): message : 서식 문자열에서 '%Id'을(를) 사용하는 것이 좋습니다.
+C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\Proj_02_ksw\main.c(61,12): message : 서식 문자열에서 '%I64d'을(를) 사용하는 것이 좋습니다.
+  Proj_02_ksw.vcxproj -> C:\Users\kso00\OneDrive\바탕 화면\학교\자구\DataStructures2022\Proj_02_ksw\x64\Debug\Proj_02_ksw.exe
