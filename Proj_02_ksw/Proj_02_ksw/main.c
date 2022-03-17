@@ -62,6 +62,7 @@ int main()
     //for (int i = 0; i < dataSize; ++i)
     //    printf("%d\t", arr[i]);
 
+    freeAllNode(head);
     free(arr);
 
     return;
