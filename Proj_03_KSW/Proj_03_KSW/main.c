@@ -69,14 +69,14 @@ int main(void)
     scanf("%d %d", &m, &n);
 
     start = time(NULL);
-    result = recAckerman(m, n);
-    end = time(NULL);
-    printf("Recursion - Result : %d, Time : %ld\n", result, end - start);
-
-    start = time(NULL);
     result = itrAckerman(m, n);
     end = time(NULL);
     printf("Iteration - Result : %d, Time : %ld\n", result, end - start);
+
+    start = time(NULL);
+    result = recAckerman(m, n);
+    end = time(NULL);
+    printf("Recursion - Result : %d, Time : %ld\n", result, end - start);
 }
 
 int recAckerman(int m, int n)
@@ -186,26 +186,30 @@ int itrBinarySearch(int *data, int x, int beginIdx, int endIdx);
 
 int main(void)
 {
-    int* data = (int*)malloc(sizeof(int) * SIZE);
+    int *data = (int *)malloc(sizeof(int) * SIZE);
 
-    time_t start, end;
+    clock_t start, end;
 
+    start = clock();
     for (int idx = 0; idx < SIZE; ++idx)
         data[idx] = idx;
+    end = clock();
+
+    printf("time : %lf\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     int x, result;
     printf("Input x : ");
     scanf("%d", &x);
 
-    start = time(NULL);
+    start = clock();
     result = recBinarySearch(data, x, 0, SIZE);
-    end = time(NULL);
-    printf("idx : %d, time : %lf\n", result, end - start);
+    end = clock();
+    printf("idx : %d, time : %lf\n", result, (double)(end - start)/CLOCKS_PER_SEC);
 
-    start = time(NULL);
+    start = clock();
     result = itrBinarySearch(data, x, 0, SIZE);
-    end = time(NULL);
-    printf("idx : %d, time : %lf\n", result, end - start);
+    end = clock();
+    printf("idx : %d, time : %lf\n", result, (double)(end - start) / CLOCKS_PER_SEC);
 
     free(data);
 }
