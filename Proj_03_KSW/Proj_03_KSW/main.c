@@ -3,7 +3,7 @@
 // Prob 4 이진탐색, 재귀적인 방법과 반복적인 방법
 // 전부다 재귀적인 방법과 반복적인 방법(for) 두 방법을 전부 구현해야함.
 
-#define PROB 4
+#define PROB 2
 
 #define _CRT_SECURE_NO_WARNINGS
 
