@@ -257,7 +257,8 @@ int init(card *NC)
     int count = 0;
     fseek(fp, 0, SEEK_END);
     count = ftell(fp) / sizeof(card);
-    fread(NC, sizeof(card), count, fp);
+    fseek(fp, 0, SEEK_SET);             // 파일 포인터가 맨 뒤로 이동한 상태에서 바로 fread를 사용해서 맨 뒤 이후부터 읽어와서 오류 발생
+    fread(NC, sizeof(card), count, fp); // 때문에 fread를 하기 전에 파일 포인터를 맨 앞으로 보내고 읽어 와야함.
     fclose(fp);
     return count;
 }
