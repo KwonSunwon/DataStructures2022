@@ -3,7 +3,11 @@
 
 #define MAX_STACK_NUMBER 100
 
-typedef char ELEMENT;
+typedef union _ELEMENT
+{
+    int operand;
+    char operator;
+} ELEMENT; // union
 
 typedef struct _STACK
 {
@@ -15,3 +19,4 @@ void init(STACK *);
 void push(STACK *, ELEMENT);
 ELEMENT pop(STACK *);
 int isEmpty(STACK);
+ELEMENT peek(STACK);

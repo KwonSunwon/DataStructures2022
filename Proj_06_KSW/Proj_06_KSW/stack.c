@@ -12,11 +12,6 @@ void push(STACK *s, ELEMENT e)
 
 ELEMENT pop(STACK *s)
 {
-    if (s->top == -1)
-    {
-        printf("Stack is full.");
-        return 0;
-    }
     return s->data[s->top--];
 }
 
@@ -26,4 +21,9 @@ int isEmpty(STACK s)
         return 1;
     else
         return 0;
+}
+
+ELEMENT peek(STACK s)
+{
+    return s.data[s.top];
 }
