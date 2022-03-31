@@ -272,7 +272,7 @@ int main(void)
         }
         else
         {
-            idx = pop(&stk);
+            pop(&stk);
         }
     }
 
