@@ -5,7 +5,7 @@
 #include <string.h>
 #include <ctype.h> // isdigit() »ç¿ë
 
-#define PROB 2
+#define PROB 1
 
 #define MAX_STACK_NUMBER 50
 
