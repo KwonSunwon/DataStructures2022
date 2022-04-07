@@ -5,12 +5,12 @@ void init(STACK *s)
     s->top = -1;
 }
 
-void push(STACK *s, int e)
+void push(STACK *s, ELEMENT e)
 {
     s->data[++s->top] = e;
 }
 
-int pop(STACK *s)
+ELEMENT pop(STACK *s)
 {
     return s->data[s->top--];
 }
@@ -23,7 +23,7 @@ int isEmpty(STACK s)
         return 0;
 }
 
-int peek(STACK s)
+ELEMENT peek(STACK s)
 {
     return s.data[s.top];
 }
