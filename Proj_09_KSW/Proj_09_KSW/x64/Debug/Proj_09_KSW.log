@@ -1,5 +1,1 @@
-﻿  main.c
-C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_09_KSW\Proj_09_KSW\main.c(60,19): warning C4013: 'getch'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_09_KSW\Proj_09_KSW\main.c(66,69): warning C4013: 'get_entry'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-main.obj : error LNK2019: get_entrymain 함수에서 참조되는 확인할 수 없는 외부 기호
-C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_09_KSW\x64\Debug\Proj_09_KSW.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
+﻿

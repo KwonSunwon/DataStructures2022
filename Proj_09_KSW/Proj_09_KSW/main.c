@@ -23,6 +23,7 @@ int get_length(LIST *);
 int is_empty(LIST *);
 int is_full(LIST *);
 void display(LIST *);
+int get_entry(LIST *, int);
 
 // TODO LinkedList Definition
 #elif PROB == 2
@@ -43,6 +44,7 @@ int get_length(LIST *);
 int is_empty(LIST *);
 int is_full(LIST *);
 void display(LIST *);
+int get_entry(LIST *, int);
 
 #endif
 
@@ -50,6 +52,8 @@ int main()
 {
     LIST list;
     char ch;
+
+    init(&list);
 
     srand(100);
     while (1)
@@ -73,7 +77,6 @@ int main()
     display(&list);
     printf("리스트 길이 %d \n", get_length(&list));
 
-    //종료하기 전에 수행해야 할 코드 추가
     return 0;
 }
 
@@ -96,9 +99,12 @@ int add(LIST *list, ELEMENT element)
     else
     {
         int idx = 0;
-        while (1)
-            if (list->data[idx++] >= element)
+        while (idx != list->count)
+        {
+            if (list->data[idx] >= element)
                 break;
+            ++idx;
+        }
 
         if (idx == list->count)
         {
@@ -117,6 +123,8 @@ int add(LIST *list, ELEMENT element)
 }
 int delete (LIST *list, ELEMENT element)
 {
+    if (is_empty(list))
+        return -1;
     int idx = 0;
     while (idx != list->count)
     {
@@ -144,6 +152,7 @@ int is_in_list(LIST *list, ELEMENT element)
     {
         if (list->data[idx] == element)
             return idx;
+        ++idx;
     }
     return -1;
 }
@@ -170,12 +179,174 @@ void display(LIST *list)
     int idx = 0;
     while (idx != list->count)
     {
-        printf("%d->", list->data[idx]);
+        printf("%d->", list->data[idx++]);
     }
     printf("\n");
+}
+int get_entry(LIST *list, int idx)
+{
+    if (list->count < idx)
+        return -1;
+    else
+        return list->data[idx];
 }
 
 // TODO LinkedList Declaration
 #elif PROB == 2
+
+void init(LIST *list)
+{
+    list->data = -1;
+    list->next = NULL;
+    list->count = 0;
+}
+int add(LIST *list, ELEMENT element)
+{
+    LIST *newNode = (LIST *)malloc(sizeof(LIST));
+    newNode->data = element;
+    newNode->next = NULL;
+    newNode->count = -1;
+
+    if (list->count == 0)
+    {
+        list->next = newNode;
+        ++list->count;
+        return 1;
+    }
+    else if (is_full(list))
+        return 0;
+    else
+    {
+        LIST *pos = list->next;
+        while (pos->next != NULL)
+        {
+            if (pos->next->data >= element)
+            {
+                newNode->next = pos->next;
+                pos->next = newNode;
+                ++list->count;
+                return 1;
+            }
+            pos = pos->next;
+        }
+        pos->next = newNode;
+        ++list->count;
+        return 1;
+    }
+
+    ++list->count;
+}
+int delete (LIST *list, ELEMENT element)
+{
+    LIST *pos = list->next;
+    LIST *prev = pos;
+    int idx = 0;
+
+    if (is_empty(list))
+    {
+        return -1;
+    }
+
+    if (list->count == 1)
+    {
+        free(pos);
+        return 0;
+    }
+
+    while (pos->next != NULL)
+    {
+        if (pos->data == element)
+        {
+            prev->next = pos->next;
+            free(pos);
+            --list->count;
+            return idx;
+        }
+        ++idx;
+        prev = pos;
+        pos = pos->next;
+    }
+    return -1;
+}
+void clear(LIST *list)
+{
+    if (is_empty(list))
+        return;
+    else
+    {
+        while (list->next != NULL)
+        {
+            LIST *del = list->next;
+            list->next = del->next;
+            free(del);
+        }
+    }
+    list->count = 0;
+}
+int is_in_list(LIST *list, ELEMENT element)
+{
+    LIST *pos = list->next;
+    int idx = 0;
+    while (pos->next != NULL)
+    {
+        if (pos->data == element)
+        {
+            return idx;
+        }
+        ++idx;
+        pos = pos->next;
+    }
+    return -1;
+}
+int get_length(LIST *list)
+{
+    return list->count;
+}
+int is_empty(LIST *list)
+{
+    if (list->count == 0)
+        return 1;
+    else
+        return 0;
+}
+int is_full(LIST *list)
+{
+    if (list->count == MAX_LIST_SIZE)
+        return 1;
+    else
+        return 0;
+}
+void display(LIST *list)
+{
+    if (is_empty(list)) 
+    {
+        printf("\n");
+        return;
+    }
+
+    if (list->count == 1)
+    {
+        printf("%d->", list->next->data);
+        printf("\n");
+        return;
+    }
+    LIST *pos = list->next;
+    while (pos->next != NULL)
+    {
+        printf("%d->", pos->data);
+        pos = pos->next;
+    }
+    printf("%d->", pos->data);
+    printf("\n");
+}
+int get_entry(LIST *list, int idx)
+{
+    if (list->count < idx)
+        return -1;
+    LIST *pos = list->next;
+    for (int i = 0; i < idx; ++i)
+        pos = pos->next;
+    return pos->data;
+}
 
 #endif
