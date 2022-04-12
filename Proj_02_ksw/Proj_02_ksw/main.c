@@ -26,7 +26,7 @@ int main()
     time_t end = time(NULL);
 
     printf("Linked List time cost : %ld\n", end - start);
-    // printNode(head);
+    printNode(head);
 
     int *arr = malloc(sizeof(int) * dataSize);
 
@@ -59,8 +59,8 @@ int main()
     end = time(NULL);
 
     printf("Array time cost : %ld\n", end - start);
-    //for (int i = 0; i < dataSize; ++i)
-    //    printf("%d\t", arr[i]);
+    for (int i = 0; i < dataSize; ++i)
+        printf("%d\t", arr[i]);
 
     freeAllNode(head);
     free(arr);

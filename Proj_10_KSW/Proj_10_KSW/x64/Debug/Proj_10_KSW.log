@@ -1,0 +1,13 @@
+﻿  main.c
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(42,27): warning C4101: 'mat_e' :참조되지 않은 지역 변수입니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(42,19): warning C4101: 'mat_d' :참조되지 않은 지역 변수입니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(128,30): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(129,29): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(163,38): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(164,38): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(180,38): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(194,38): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(222,32): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(238,24): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\Proj_10_KSW\main.c(247,32): warning C4133: '=': 'Node *'과(와) 'Node *' 사이의 형식이 호환되지 않습니다.
+  Proj_10_KSW.vcxproj -> C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_10_KSW\x64\Debug\Proj_10_KSW.exe

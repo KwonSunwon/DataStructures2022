@@ -4,7 +4,7 @@
 #define MAX_LIST_SIZE 100
 typedef int ELEMENT;
 
-#define PROB 1
+#define PROB 2
 
 // TODO Array Definition
 #if PROB == 1
@@ -318,7 +318,7 @@ int is_full(LIST *list)
 }
 void display(LIST *list)
 {
-    if (is_empty(list)) 
+    if (is_empty(list))
     {
         printf("\n");
         return;
