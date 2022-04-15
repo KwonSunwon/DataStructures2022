@@ -4,7 +4,7 @@
 #define MAX_LIST_SIZE 100
 typedef int ELEMENT;
 
-#define PROB 2
+#define PROB 1
 
 // TODO Array Definition
 #if PROB == 1
