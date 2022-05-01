@@ -10,8 +10,11 @@ typedef struct _TreeNode
     struct _TreeNode *left, *right;
 } TreeNode;
 
-int top = -1;
-TreeNode *stack[SIZE];
+typedef struct _Stack
+{
+    TreeNode *data[SIZE];
+    int top;
+} Stack;
 
 void inorder_rec(TreeNode *);
 void preorder_rec(TreeNode *);
@@ -21,8 +24,9 @@ void inorder_iter(TreeNode *);
 void preorder_iter(TreeNode *);
 void postorder_iter(TreeNode *);
 
-void push(TreeNode *);
-TreeNode *pop();
+void init(Stack *);
+void push(Stack *, TreeNode *);
+TreeNode *pop(Stack *);
 
 // Full Binary Tree node number 1~15(root : 1)
 TreeNode n15 = {15, NULL, NULL};
@@ -95,11 +99,13 @@ void postorder_rec(TreeNode *root)
 
 void inorder_iter(TreeNode *root)
 {
+    Stack s;
+    init(&s);
     while (1)
     {
         for (; root; root = root->left)
-            push(root);
-        root = pop();
+            push(&s, root);
+        root = pop(&s);
         if (!root)
             break;
         printf("[%d] ", root->data);
@@ -108,14 +114,16 @@ void inorder_iter(TreeNode *root)
 }
 void preorder_iter(TreeNode *root)
 {
+    Stack s;
+    init(&s);
     while (1)
     {
         for (; root; root = root->left)
         {
             printf("[%d] ", root->data);
-            push(root);
+            push(&s, root);
         }
-        root = pop();
+        root = pop(&s);
         if (!root)
             break;
         root = root->right;
@@ -123,18 +131,49 @@ void preorder_iter(TreeNode *root)
 }
 void postorder_iter(TreeNode *root) // 아마 스택 두 가지 사용
 {
+    Stack s1;
+    Stack s2;
+    init(&s1);
+    init(&s2);
+
+    push(&s1, root);
+
+    while (1)
+    {
+        root = pop(&s1);
+        if (!root)
+            break;
+        push(&s2, root);
+
+        if (root->left)
+            push(&s1, root->left);
+        if (root->right)
+            push(&s1, root->right);
+    }
+
+    while (1)
+    {
+        root = pop(&s2);
+        if (!root)
+            break;
+        printf("[%d] ", root->data);
+    }
 }
 
-void push(TreeNode *p)
+void init(Stack *s)
 {
-    if (top < SIZE - 1)
-        stack[++top] = p;
+    s->top = -1;
 }
-TreeNode *pop()
+void push(Stack *s, TreeNode *p)
+{
+    if (s->top < SIZE - 1)
+        s->data[++s->top] = p;
+}
+TreeNode *pop(Stack *s)
 {
     TreeNode *p = NULL;
-    if (top >= 0)
-        p = stack[top--];
+    if (s->top >= 0)
+        p = s->data[s->top--];
     return p;
 }
 

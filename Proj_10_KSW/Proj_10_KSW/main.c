@@ -13,7 +13,7 @@ typedef struct _Element
 typedef struct _Node
 {
     Element data;
-    struct Node *link;
+    struct _Node *link;
 } Node;
 
 typedef struct _Head
@@ -49,6 +49,8 @@ int main()
     init(&mat_b);
 
     mat_c = NULL;
+    mat_d = NULL;
+    mat_e = NULL;
 
     mat_a.m_row = row;
     mat_a.m_col = col;
@@ -74,33 +76,67 @@ int main()
             add(&mat_b, element);
         }
 
+    printf("행렬 A\n");
     display_matrix(&mat_a);
     printf("\n");
+
+    printf("행렬 A 리스트\n");
     display_list(&mat_a);
     printf("\n");
+
+    printf("행렬 B\n");
     display_matrix(&mat_b);
     printf("\n");
+
+    printf("행렬 B 리스트\n");
     display_list(&mat_b);
+    printf("\n");
 
     mat_c = add_matrix(mat_a, mat_b);
 
+    printf("행렬 C = A + B\n");
+    display_matrix(mat_c);
     printf("\n");
 
+    printf("행렬 C 리스트\n");
     display_list(mat_c);
-    display_matrix(mat_c);
+    printf("\n");
+
+    mat_d = sub_matrix(mat_a, mat_b);
+
+    printf("행렬 D = A - B\n");
+    display_matrix(mat_d);
+    printf("\n");
+
+    printf("행렬 D 리스트\n");
+    display_list(mat_d);
+    printf("\n");
+
+    mat_e = matrix_transpose(mat_a);
+
+    printf("행렬 E = TRANSPOSE(A)\n");
+    display_matrix(mat_e);
+    printf("\n");
+
+    printf("행렬 E 리스트\n");
+    display_list(mat_e);
+    printf("\n");
 
     // 동적 할당된 메모리 모두 해제
     free_matrix(&mat_a);
     free_matrix(&mat_b);
     free_matrix(mat_c);
-    // free_matrix(mat_d);
-    // free_matrix(mat_e);
-    free(mat_c);
+    free_matrix(mat_d);
+    free_matrix(mat_e);
+    if (mat_c->link != NULL)
+        free(mat_c);
     mat_c = NULL;
-    // free(mat_d);
-    // mat_d = NULL;
-    // free(mat_e);
-    // mat_e = NULL;
+    if (mat_d->link != NULL)
+        free(mat_d);
+    mat_d = NULL;
+    if (mat_e->link != NULL)
+        free(mat_e);
+    mat_e = NULL;
 }
 
 void init(Head *h)
@@ -117,26 +153,91 @@ void add(Head *h, Element e)
     newNode->data = e;
     newNode->link = NULL;
 
+    Node *pos = h->link;
+
     if (h->link == NULL)
     {
         h->link = newNode;
+        return;
     }
-    else
+    else if (pos->data.row >= e.row)
     {
-        Node *last = h->link;
-        while (last->link != NULL)
-            last = last->link;
-        last->link = newNode;
+        if (pos->data.row == e.row)
+            if (pos->data.col > e.col)
+            {
+                newNode->link = h->link;
+                h->link = newNode;
+                return;
+            }
+        if (pos->data.row > e.row)
+        {
+            newNode->link = h->link;
+            h->link = newNode;
+            return;
+        }
     }
+
+    while (pos->link != NULL)
+    {
+        if (pos->link->data.row >= e.row)
+        {
+            if (pos->link->data.row > e.row)
+            {
+                newNode->link = pos->link;
+                pos->link = newNode;
+                return;
+            }
+            else if (pos->link->data.row == e.row)
+            {
+                while (pos->link != NULL)
+                {
+                    if (pos->link->data.col > e.col)
+                    {
+                        newNode->link = pos->link;
+                        pos->link = newNode;
+                        return;
+                    }
+                    if (pos->link->data.row > e.row)
+                    {
+                        newNode->link = pos->link;
+                        pos->link = newNode;
+                        return;
+                    }
+                    pos = pos->link;
+                }
+                pos->link = newNode;
+            }
+            return;
+        }
+        pos = pos->link;
+    }
+    pos->link = newNode;
 }
 
 Head *add_matrix(Head mat_a, Head mat_b)
 {
-    static Head mat_result;
+    Head *mat_result = (Head *)malloc(sizeof(Head));
 
-    init(&mat_result);
-    mat_result.m_row = mat_a.m_row;
-    mat_result.m_col = mat_b.m_col;
+    init(mat_result);
+    mat_result->m_row = mat_a.m_row;
+    mat_result->m_col = mat_b.m_col;
+
+    if (mat_a.m_row == 1 && mat_a.m_col == 1)
+    {
+        int a = 1;
+        int b = 1;
+        Element element;
+        element.row = 1;
+        element.col = 1;
+        if (mat_a.link == NULL)
+            a = 0;
+        if (mat_b.link == NULL)
+            b = 0;
+        element.value = a + b;
+
+        add(mat_result, element);
+        return;
+    }
 
     Node *aCur = mat_a.link;
     Node *bCur = mat_b.link;
@@ -145,9 +246,15 @@ Head *add_matrix(Head mat_a, Head mat_b)
     int bEndFlag = 0;
     int addFlag = 0;
 
-    for (int i = 0; i < mat_a.m_row; ++i)
+    if (aCur == NULL)
+        aEndFlag = 1;
+
+    if (bCur == NULL)
+        bEndFlag = 1;
+
+    for (int i = 0; i < mat_result->m_row; ++i)
     {
-        for (int j = 0; j < mat_a.m_col; ++j)
+        for (int j = 0; j < mat_result->m_col; ++j)
         {
             if (aEndFlag == 0 && bEndFlag == 0)
             {
@@ -155,10 +262,10 @@ Head *add_matrix(Head mat_a, Head mat_b)
                 {
                     Element element;
                     element.row = i;
-                    element.col = i;
+                    element.col = j;
                     element.value = aCur->data.value + bCur->data.value;
 
-                    add(&mat_result, element);
+                    add(mat_result, element);
 
                     aCur = aCur->link;
                     bCur = bCur->link;
@@ -172,10 +279,10 @@ Head *add_matrix(Head mat_a, Head mat_b)
                 {
                     Element element;
                     element.row = i;
-                    element.col = i;
+                    element.col = j;
                     element.value = aCur->data.value;
 
-                    add(&mat_result, element);
+                    add(mat_result, element);
 
                     aCur = aCur->link;
                 }
@@ -186,10 +293,10 @@ Head *add_matrix(Head mat_a, Head mat_b)
                 {
                     Element element;
                     element.row = i;
-                    element.col = i;
+                    element.col = j;
                     element.value = bCur->data.value;
 
-                    add(&mat_result, element);
+                    add(mat_result, element);
 
                     bCur = bCur->link;
                 }
@@ -203,22 +310,160 @@ Head *add_matrix(Head mat_a, Head mat_b)
         }
     }
 
-    return &mat_result;
+    return mat_result;
 }
-Head *sub_matrix(Head mat_a, Head mat_b);
-Head *matrix_transpose(Head h);
+
+Head *sub_matrix(Head mat_a, Head mat_b)
+{
+    Head *mat_result = (Head *)malloc(sizeof(Head));
+
+    init(mat_result);
+    mat_result->m_row = mat_a.m_row;
+    mat_result->m_col = mat_b.m_col;
+
+    if (mat_a.m_row == 1 && mat_a.m_col == 1)
+    {
+        int a = 1;
+        int b = 1;
+        Element element;
+        element.row = 1;
+        element.col = 1;
+        if (mat_a.link == NULL)
+            a = 0;
+        if (mat_b.link == NULL)
+            b = 0;
+        element.value = a - b;
+
+        add(mat_result, element);
+        return;
+    }
+
+    Node *aCur = mat_a.link;
+    Node *bCur = mat_b.link;
+
+    int aEndFlag = 0;
+    int bEndFlag = 0;
+    int subFlag = 0;
+
+    if (aCur == NULL)
+        aEndFlag = 1;
+
+    if (bCur == NULL)
+        bEndFlag = 1;
+
+    for (int i = 0; i < mat_result->m_row; ++i)
+    {
+        for (int j = 0; j < mat_result->m_col; ++j)
+        {
+            if (aEndFlag == 0 && bEndFlag == 0)
+            {
+                if (aCur->data.row == i && aCur->data.col == j && bCur->data.row == i && bCur->data.col == j)
+                {
+                    Element element;
+                    element.row = i;
+                    element.col = j;
+                    element.value = aCur->data.value - bCur->data.value;
+
+                    add(mat_result, element);
+
+                    aCur = aCur->link;
+                    bCur = bCur->link;
+
+                    subFlag = 1;
+                }
+            }
+            if (aEndFlag == 0 && subFlag == 0)
+            {
+                if (aCur->data.row == i && aCur->data.col == j)
+                {
+                    Element element;
+                    element.row = i;
+                    element.col = j;
+                    element.value = aCur->data.value;
+
+                    add(mat_result, element);
+
+                    aCur = aCur->link;
+                }
+            }
+            if (bEndFlag == 0 && subFlag == 0)
+            {
+                if (bCur->data.row == i && bCur->data.col == j)
+                {
+                    Element element;
+                    element.row = i;
+                    element.col = j;
+                    element.value = -bCur->data.value;
+
+                    add(mat_result, element);
+
+                    bCur = bCur->link;
+                }
+            }
+
+            if (aCur == NULL)
+                aEndFlag = 1;
+            if (bCur == NULL)
+                bEndFlag = 1;
+            subFlag = 0;
+        }
+    }
+
+    return mat_result;
+}
+
+Head *matrix_transpose(Head h)
+{
+    Head *mat_result = (Head *)malloc(sizeof(Head));
+
+    init(mat_result);
+    mat_result->m_row = h.m_col;
+    mat_result->m_col = h.m_row;
+
+    Node *cur = h.link;
+    while (cur != NULL)
+    {
+        Element element;
+        element.col = cur->data.row;
+        element.row = cur->data.col;
+        element.value = cur->data.value;
+
+        add(mat_result, element);
+
+        cur = cur->link;
+    }
+
+    return mat_result;
+}
 
 void display_matrix(Head *h)
 {
+    if (h->m_row == 1 && h->m_col == 1)
+    {
+        if (h->link == NULL)
+            printf("0\n");
+        else
+            printf("%d\n", h->link->data.value);
+        return;
+    }
+
     Node *cur = h->link;
     int endFlag = 0;
+
+    if (h->link == NULL)
+        endFlag = 1;
+
     for (int i = 0; i < h->m_row; ++i)
     {
         for (int j = 0; j < h->m_col; ++j)
         {
-            if (cur->data.row == i && cur->data.col == j && endFlag == 0)
+            if (endFlag == 1)
             {
-                printf("1 ");
+                printf("0 ");
+            }
+            else if (cur->data.row == i && cur->data.col == j)
+            {
+                printf("%d ", cur->data.value);
                 cur = cur->link;
                 if (cur == NULL)
                     endFlag = 1;

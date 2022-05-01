@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PROB 2
+#define PROB 1
 
 #if PROB == 1
 
