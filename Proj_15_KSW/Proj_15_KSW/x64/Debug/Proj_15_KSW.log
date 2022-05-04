@@ -1,0 +1,5 @@
+﻿  main.c
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_15_KSW\Proj_15_KSW\main.c(31,11): warning C4013: 'strcpy'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_15_KSW\Proj_15_KSW\main.c(135,16): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 '_TreeNode *'입니다.
+C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_15_KSW\Proj_15_KSW\main.c(135,16): warning C4313: 'printf': 서식 문자열의 '%d'이(가) _TreeNode *' 형식의 인수 1과(와) 충돌합니다.
+  Proj_15_KSW.vcxproj -> C:\Users\kso00\Desktop\22년 1학기\자료구조\DataStructures2022\Proj_15_KSW\x64\Debug\Proj_15_KSW.exe
