@@ -140,7 +140,10 @@ TreeNode *insert_node(TreeNode *root, Element item)
                 pos = pos->right;
             }
             else if (pos->std.id_num == item.id_num)
+            {
+                free(newNode);
                 break;
+            }
         }
     }
     return root;
