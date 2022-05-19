@@ -7,7 +7,7 @@
 
 int visited[MAX_VERTICES];
 
-#define PROB 1
+#define PROB 2
 
 #if PROB == 1
 
@@ -200,8 +200,7 @@ int main()
     dfs_list(g, 0);
     printf("\n");
 
-    
-    printf("너비 우선 탐색\n");
+        printf("너비 우선 탐색\n");
     bfs_list(g, 0);
     printf("\n");
 
