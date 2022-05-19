@@ -138,8 +138,6 @@ void kruskal(GraphType *g)
 
 #elif PROB == 2
 
-#define N_NODE 8
-
 typedef struct GraphType
 {
     int n; // 정점의 개수
@@ -156,7 +154,7 @@ int main(void)
 {
     int i;
     // test data1
-    // GraphType g = {N_NODE,
+    // GraphType g = {7,
     //                {{0, 29, INF, INF, INF, 10, INF},
     //                 {29, 0, 16, INF, INF, INF, 15},
     //                 {INF, 16, 0, 12, INF, INF, INF},
@@ -165,7 +163,7 @@ int main(void)
     //                 {10, INF, INF, INF, 27, 0, INF},
     //                 {INF, 15, INF, 18, 25, INF, 0}}};
     // test data2
-    GraphType g = {N_NODE,
+    GraphType g = {8,
                    {{0, 10, INF, 6, INF, INF, INF, 1},
                     {10, 0, 4, INF, INF, 2, INF, INF},
                     {INF, 4, 0, 11, INF, 7, INF, INF},
