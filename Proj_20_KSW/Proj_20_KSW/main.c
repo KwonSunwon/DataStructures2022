@@ -126,10 +126,46 @@ int main()
     free(sorted);
 }
 
-void selection_sort(int *, int);
-void insertion_sort(int *, int);
-void bubble_sort(int *, int);
-void shell_sort(int *, int);
+void selection_sort(int *list, int size)
+{
+    int i, j, least, temp;
+    for (i = 0; i < size - 1; ++i)
+    {
+        least = i;
+        for (j = i + 1; j < size; ++j)
+            if (list[j] < list[least])
+                least = j;
+        temp = list[j];
+        list[j] = list[least];
+        list[least] = temp;
+    }
+}
+void insertion_sort(int *list, int size)
+{
+    int key, j;
+    for (int i = 1; i < size; ++i)
+    {
+        key = list[i];
+        for (j = i - 1; j >= 0 && list[j] > key; --j)
+            list[j + 1] = list[j];
+        list[j + 1] = key;
+    }
+}
+void bubble_sort(int *list, int size)
+{
+    int temp;
+    for (int i = size - 1; i > 0; --i)
+        for (int j = 0; j < i; ++j)
+            if (list[j] > list[j + 1])
+            {
+                temp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = temp;
+            }
+}
+void shell_sort(int *list, int size)
+{
+}
 void merge_sort(int *, int);
 void quick_sort(int *, int);
 void heap_sort(int *, int);
