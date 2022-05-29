@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define PROB 2
+#define PROB 1
 
 #define TRUE 1
 #define FALSE 0

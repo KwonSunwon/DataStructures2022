@@ -1,6 +1,6 @@
 // Prob 1. heap을 이용한 정렬 vs Selection 정렬 비교
 // Prob 2. 하프만 코드 인코딩, 디코딩
-#define PROB 2
+#define PROB 1
 
 #include <stdio.h>
 #include <stdlib.h>
