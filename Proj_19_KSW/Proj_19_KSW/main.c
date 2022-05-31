@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define PROB 2
+#define PROB 3
 
 #define MAX_VERTICES 100
 
