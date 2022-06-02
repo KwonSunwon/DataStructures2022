@@ -22,14 +22,31 @@ typedef struct _Queue
     int rear;
 } Queue;
 
+void queue_init(Queue *);
+void enqueue(Queue *, qData);
+qData dequeue(Queue *);
+int is_empty(Queue *);
+int is_full(Queue *);
+
 AVLNode *AVL_insert(AVLNode *, int);
+AVLNode *AVL_remove(AVLNode *, int);
+
+AVLNode *find_node(AVLNode *);
+
 void level_order(AVLNode *);
 
 int get_balance(AVLNode *);
 int get_height(AVLNode *);
 
+AVLNode *balance(AVLNode *);
+
 AVLNode *rotate_right(AVLNode *);
 AVLNode *rotate_left(AVLNode *);
+
+AVLNode *LL_rotate(AVLNode *);
+AVLNode *RR_rotate(AVLNode *);
+AVLNode *LR_rotate(AVLNode *);
+AVLNode *RL_rotate(AVLNode *);
 
 int main()
 {
@@ -94,53 +111,142 @@ int main()
 
 AVLNode *AVL_insert(AVLNode *root, int key)
 {
-    AVLNode *new = (AVLNode *)malloc(sizeof(AVLNode));
-    new->key = key;
-    new->left = NULL;
-    new->right = NULL;
-
-    AVLNode *pos = root;
     if (!root)
+    {
+        AVLNode *new = (AVLNode *)malloc(sizeof(AVLNode));
+        new->key = key;
+        new->left = NULL;
+        new->right = NULL;
         root = new;
+    }
+    else if (root->key > key)
+    {
+        root->left = AVL_insert(root->left, key);
+        root = balance(root);
+    }
+    else if (root->key < key)
+    {
+        root->right = AVL_insert(root->right, key);
+        root = balance(root);
+    }
+    else if (root->key == key)
+        printf("중복된 데이터\n");
+
+    return root;
+}
+
+AVLNode *AVL_remove(AVLNode *root, int key)
+{
+    AVLNode *temp = NULL;
+
+    if (!root)
+        return root;
+
+    if (root->key > key)
+    {
+        root->left = AVL_remove(root->left, key);
+    }
+    else if (root->key < key)
+    {
+        root->right = AVL_remove(root->right, key);
+    }
     else
     {
-        while (1)
+        if ((root->left == NULL) || (root->right == NULL))
         {
-            if (pos->key > key)
+            temp = root->left ? root->left : root->right;
+            if (temp == NULL)
             {
-                if (!pos->left)
-                {
-                    pos->left = new;
-                    break;
-                }
-                pos = pos->left;
+                temp = root;
+                root = NULL;
             }
-            else if (pos->key < key)
-            {
-                if (!pos->right)
-                {
-                    pos->right = new;
-                    break;
-                }
-                pos = pos->right;
-            }
-            else if (pos->key == key)
-            {
-                printf("중복된 데이터\n");
-                free(new);
-                return root;
-            }
-            push(/*stack*/, pos);
+            else
+                *root = *temp;
+            free(temp);
+        }
+        else
+        {
+            temp = find_node(root->right);
+            root->key = temp->key;
+            root->right = AVL_remove(root->right, temp->key);
         }
     }
 
-    while (stack_is_empty(/*stack*/))
-    {
-        pos = pop(/*stack*/);
-        int balanceFactor = get_balance(pos);
-        if(balanceFactor > 1 && )
-    }
+    if (root == NULL)
+        return root;
+
+    root = balance(root);
     return root;
+}
+
+AVLNode *find_node(AVLNode *node)
+{
+    AVLNode *pos = node;
+    while (pos->left)
+        pos = pos->left;
+    return pos;
+}
+
+AVLNode *balance(AVLNode *root)
+{
+    int balanceFactor = get_balance(root);
+
+    if (balanceFactor > 1)
+    {
+        if (get_balance(root->left) >= 0)
+            root = LL_rotate(root);
+        else
+            root = LR_rotate(root);
+    }
+    else if (balanceFactor < -1)
+    {
+        if (get_balance(root->right) <= 0)
+            root = RR_rotate(root);
+        else
+            root = RL_rotate(root);
+    }
+
+    return root;
+}
+
+AVLNode *rotate_left(AVLNode *root)
+{
+    AVLNode *child = root->right;
+    if (child != NULL)
+        root->right = child->left;
+    else
+        root->right = NULL;
+    child->left = root;
+    return child;
+}
+AVLNode *rotate_right(AVLNode *root)
+{
+    AVLNode *child = root->left;
+    if (child != NULL)
+        root->left = child->right;
+    else
+        root->left = NULL;
+    child->right = root;
+    return child;
+}
+
+AVLNode *LL_rotate(AVLNode *root)
+{
+    return rotate_right(root);
+}
+AVLNode *RR_rotate(AVLNode *root)
+{
+    return rotate_left(root);
+}
+AVLNode *LR_rotate(AVLNode *root)
+{
+    root->left = rotate_left(root->left);
+    return rotate_right(root);
+}
+AVLNode *RL_rotate(AVLNode *root)
+{
+    root->right = rotate_right(root->right);
+    return rotate_left(root);
 }
 
 int get_balance(AVLNode *node)
@@ -194,6 +300,7 @@ void level_order(AVLNode *root)
         }
         printf("[%d] ", data.node->key);
     }
+    printf("\n");
 }
 
 void queue_init(Queue *q)
